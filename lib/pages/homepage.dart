@@ -27,20 +27,22 @@ class _HOmePageState extends State<HOmePage> {
 
     DateTime now = DateTime.now();
     for (var transaction in allTransaction) {
-      DateTime TransactionDate = DateTime.parse(transaction['date']);
+      DateTime transactionDate = DateTime.parse(transaction['date']);
       bool isSelectedPeriod;
       if (selectedMonth) {
         isSelectedPeriod =
-            TransactionDate.year == now.year &&
-            TransactionDate.month == now.month;
+            transactionDate.year == now.year &&
+            transactionDate.month == now.month;
       } else {
-        isSelectedPeriod = TransactionDate.year == now.year;
+        isSelectedPeriod = transactionDate.year == now.year;
       }
-      double amount = transaction['amount'];
-      if (transaction['type'] == 'income') {
-        totalIncome += amount;
-      } else if (transaction['type'] == 'expense') {
-        totalExpense += amount;
+      if(isSelectedPeriod){
+        double amount = transaction['amount'];
+        if (transaction['type'] == 'income') {
+          totalIncome += amount;
+        } else if (transaction['type'] == 'expense') {
+          totalExpense += amount;
+        }
       }
     }
   }
